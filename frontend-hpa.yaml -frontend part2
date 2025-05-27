@@ -1,0 +1,50 @@
+apiVersion: autoscaling/v2   //You're using v2, which supports advanced features like scaling behaviors v1 can't
+kind: HorizontalPodAutoscaler  //The resource is an Horizontal Pod Autoscaler HPA object, which automatically scales the number of pod replicas.
+metadata: // giving details for  HorizontalPodAutoscaler as reference  as name and lables
+  name: frontend-django-hpa
+spec: //  what HorizontalPodAutoscaler need to do work 
+  scaleTargetRef:  //This tells the HPA which deployment to scale
+    apiVersion: apps/v1
+    kind: Deployment
+    name: frontend-django
+  minReplicas: 1  //The minimum number of pods that should always be running. Here, 1 means at least one pod will always be up.
+  maxReplicas: 5  //The maximum number of pods allowed under high load. Here, it's limited to 5.
+  metrics: //You're scaling based on resource usage (could also be "Object" or "Pods").
+    - type: Resource
+      resource:  //The metric being tracked is CPU usage.
+        name: cpu  
+        target:
+          type: Utilization  //This uses percentage-based utilization, rather than absolute values
+          averageUtilization: 50  The HPA will try to maintain average CPU usage of 50% across all pods. If it goes above 50%, it scales up; below 50%, it scales down.
+  behavior:
+    scaleUp:
+      stabilizationWindowSeconds: 30  //Wait 30 seconds after the last scale-up before allowing another scale-up. Helps avoid sudden spikes.
+      policies: Defines how fast pods can scale up.
+        - type: Pods
+          value: 2  //Can increase by at most 2 pods per 30 seconds.
+          periodSeconds: 30
+      selectPolicy: Max  //If multiple policies apply, choose the one allowing the most aggressive scale (Max).
+    scaleDown:
+      stabilizationWindowSeconds: 60 //Wait 60 seconds before scaling down again to avoid overreaction to short dips in load.
+      policies:
+        - type: Percent //type: Percent + value: 50 //In one go, you can reduce up to 50% of the current pods
+          periodSeconds: 60
+        - type: Pods
+          value: 1  //type: Pods + value: 1 Or, you can remove 1 pod at a time.
+          periodSeconds: 60
+      selectPolicy: Max //Between 50% or 1 pod, it picks the one that removes more pods (Max).
+      
+      
+      
+    # ✅ Example:
+# If you have 4 pods running:
+
+50% of 4 = 2 pods
+
+1 pod = 1
+
+Since selectPolicy: Max, it chooses 2 pods to remove.
+
+This setup gives you control and safety when scaling down — it won't suddenly remove too many pods or respond too fast to a temporary drop.
+
+Let me know if you want a similar breakdown for the scale-up section too.
