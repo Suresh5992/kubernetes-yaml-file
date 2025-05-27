@@ -1,19 +1,26 @@
 # kubernetes-yaml-file
 Kubernetes  yaml files from the scratch with proper explanation easy to understand 
-**Edit and see it **
-Django-Three-Tier-Manifests/
-├── backend/
-│   ├── deployment.yaml
-│   └── service.yaml
-├── db/
-│   ├── deployment.yaml
-│   └── service.yaml
-├── frontend/
-│   ├── deployment.yaml
-│   └── service.yaml
-└── namespace.yaml
 
- Deployments, StatefulSets, DaemonSets, etc.
+ # Django-Three-Tier-Manifests/ directory structure in a table format including ConfigMaps, Ingress, and PVCs:
+
+ | Directory   | File Name         | Description                     |
+| ----------- | ----------------- | ------------------------------- |
+| `backend/`  | `deployment.yaml` | Backend Deployment              |
+|             | `service.yaml`    | Backend Service                 |
+|             | `configmap.yaml`  | Backend ConfigMap               |
+|             | `pvc.yaml`        | Backend Persistent Volume Claim |
+| `db/`       | `deployment.yaml` | Database Deployment             |
+|             | `service.yaml`    | Database Service                |
+|             | `configmap.yaml`  | DB ConfigMap                    |
+|             | `pvc.yaml`        | DB Persistent Volume Claim      |
+| `frontend/` | `deployment.yaml` | Frontend Deployment             |
+|             | `service.yaml`    | Frontend Service                |
+|             | `configmap.yaml`  | Frontend ConfigMap              |
+| *(root)*    | `namespace.yaml`  | Namespace Definition            |
+|             | `ingress.yaml`    | Ingress Resource                |
+
+
+ # Deployments, StatefulSets, DaemonSets, etc.
  
  | Kind        | apiVersion             |
 | ----------- | ---------------------- |
@@ -27,7 +34,7 @@ Django-Three-Tier-Manifests/
 
 
 
-**This is Manifest **
+# This is Manifest 
 
 | Resource Type         | `kind` in Manifest | Purpose                             |
 | --------------------- | ------------------ | ----------------------------------- |
@@ -41,11 +48,11 @@ Django-Three-Tier-Manifests/
 
 
 
-📌 Key Sections in a Manifest:
-apiVersion – API group and version used.
+# 📌 Key Sections in a Manifest:
+# apiVersion – API group and version used.
 
-kind – Type of Kubernetes object.
+# kind – Type of Kubernetes object.
 
-metadata – Name, labels, annotations, etc.
+# metadata – Name, labels, annotations, etc.
 
-spec – Specifications that define the object’s desired state.
+# spec – Specifications that define the object’s desired state.
