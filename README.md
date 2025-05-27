@@ -1,16 +1,6 @@
 # kubernetes-yaml-file
 Kubernetes  yaml files from the scratch with proper explanation easy to understand 
-Django-Three-Tier-Manifests/
-├── backend/
-│   ├── deployment.yaml
-│   └── service.yaml
-├── db/
-│   ├── deployment.yaml
-│   └── service.yaml
-├── frontend/
-│   ├── deployment.yaml
-│   └── service.yaml
-└── namespace.yaml
+
 
 
  Deployments, StatefulSets, DaemonSets, etc.
