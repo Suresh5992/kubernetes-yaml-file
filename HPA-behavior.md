@@ -19,3 +19,43 @@
 | 00:30  | High CPU continues| Add 2 more pods → total 8                | —                                         |
 | 01:00  | CPU drops         | —                                        | Remove 2 pods (50% of 4) → total 2        |
 | 02:00  | Still low usage   | —                                        | Remove 1 pod → total 1                    |
+
+
+
+
+
+🔽 Scale Down Behavior (Easy Explanation)
+
+
+If you have 4 pods running:
+
+50% of 4 = 2 pods
+
+1 pod = 1
+
+Since selectPolicy: Max, it chooses 2 pods to remove.
+
+This setup gives you control and safety when scaling down — it won't suddenly remove too many pods or respond too fast to a temporary drop.
+
+
+
+
+🔼 Scale Up Behavior Explained
+✅ Example:
+Let’s say:
+
+Your deployment has 1 pod running.
+
+Suddenly, CPU usage goes very high and HPA decides it needs 5 pods.
+
+Here’s what happens:
+
+Initial scale-up: 1 ➜ 3 pods (added 2 pods as per policy)
+
+Wait 30 seconds
+
+If high usage continues: 3 ➜ 5 pods (adds 2 more pods)
+
+📌 It will not add all 4 pods at once, even if needed. It limits the scaling to 2 pods per 30 seconds.
+
+This avoids overloading your cluster and gives time to observe if the CPU spike is real or temporary.
