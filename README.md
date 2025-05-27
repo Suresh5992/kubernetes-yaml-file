@@ -1,6 +1,6 @@
 # kubernetes-yaml-file
 Kubernetes  yaml files from the scratch with proper explanation easy to understand 
-
+**Edit and see it **
 Django-Three-Tier-Manifests/
 ├── backend/
 │   ├── deployment.yaml
