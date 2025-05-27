@@ -1,0 +1,46 @@
+apiVersion: apps/v1   // api for Depployment apps/v1 can't change 
+kind: Deployment   // Deployments, StatefulSets, DaemonSets, etc.
+metadata:   // giving details for deployment for reference  as name and lables 
+  name: frontend-django
+  labels:    key value pair it works  Deployment : key value and value is labels if you want to add this deployment to any other yaml file we use labels as reference perpose 
+    app: frontend-django      
+spec:  //  what deployment need to do work 
+  replicas: 1  // means only one pod will be running
+  selector:    // Selector defines how the Deployment finds which pods it manages.
+    matchLabels:    //It looks for pods with label app: frontend-django. This must match the labels on pod templates.
+      app: frontend-django  
+  template:  // for pod create down hare || The template describes the pods that will be created. || for pod Reference 
+    metadata:  //The pod template has its own metadata with labels. Here, pods created by this Deployment will have the label app: frontend-django, matching the selector above.
+      labels:
+        app: frontend-django
+    spec:    // what pod need to do work 
+      containers: //container is defined with the name frontend-django.
+        - name: frontend-django
+          image: madeep2669/django-frontend:10  // docker image  : 10 means version 
+          imagePullPolicy: Always   // pull the image from the registry when creating a new pod. form DockerHub 
+          ports:
+            - containerPort: 3001   // network ports the container exposes.internally
+          env:  // environment variables inside the container.
+            - name: REACT_APP_API_URL //REACT_APP_API_URL is set to a URL that points to a backend Django service inside the Kubernetes cluster.
+            *****This environment variable could be used by the frontend app to connect to the backend API.****
+              value: "http://django-service.django.svc.cluster.local:8000"
+          resources: //resource requests and limits for the container.
+            requests: // minimum resources guaranteed to the container.
+              cpu: "500m"
+              memory: "256Mi"
+            limits:  // maximum resources the container can use.
+              cpu: "1000m"
+              memory: "512Mi"
+---
+apiVersion: v1  //This is a core Kubernetes resource, so API version is v1
+kind: Service
+metadata: // giving details for service for reference  as name and lables 
+  name: frontend-django-service  //This is how other pods or services will refer to it. 
+spec:  what service need to do work
+  type: ClusterIP  //The Service type is ClusterIP, meaning it is reachable only within the Kubernetes cluster on a virtual IP.
+  selector:  // Selector defines how the service finds which pods it manages.  //The service will route traffic to pods with the label app: frontend-django.
+    app: frontend-django  //Matches the pods created by the Deployment above
+  ports:
+    - port: 80
+      targetPort: 3001 //Inside the pod, the frontend app listens on port 3001 (containerPort: 3001 but Service exposes port 80 inside the cluster. //** forwards that traffic to port 3001 
+      protocol: TCP  // specifies the network protocol.
