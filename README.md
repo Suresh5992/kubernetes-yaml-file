@@ -24,3 +24,18 @@ Django-Three-Tier-Manifests/
 | Ingress     | `networking.k8s.io/v1` |
 | StatefulSet | `apps/v1`              |
 | Pod         | `v1`                   |
+
+
+
+
+
+| Resource Type         | `kind` in Manifest | Purpose                             |
+| --------------------- | ------------------ | ----------------------------------- |
+| Pod                   | `Pod`              | Smallest deployable unit            |
+| Deployment            | `Deployment`       | Manage stateless apps               |
+| Service               | `Service`          | Expose apps to the network          |
+| ConfigMap             | `ConfigMap`        | Store non-confidential config       |
+| Secret                | `Secret`           | Store sensitive data like passwords |
+| Ingress               | `Ingress`          | HTTP(S) routing rules               |
+| PersistentVolumeClaim | `PVC`              | Request storage resources           |
+
