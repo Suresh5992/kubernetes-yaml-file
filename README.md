@@ -27,7 +27,7 @@ Django-Three-Tier-Manifests/
 
 
 
-
+**This is Manifest **
 
 | Resource Type         | `kind` in Manifest | Purpose                             |
 | --------------------- | ------------------ | ----------------------------------- |
@@ -39,3 +39,13 @@ Django-Three-Tier-Manifests/
 | Ingress               | `Ingress`          | HTTP(S) routing rules               |
 | PersistentVolumeClaim | `PVC`              | Request storage resources           |
 
+
+
+📌 Key Sections in a Manifest:
+apiVersion – API group and version used.
+
+kind – Type of Kubernetes object.
+
+metadata – Name, labels, annotations, etc.
+
+spec – Specifications that define the object’s desired state.
