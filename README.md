@@ -21,6 +21,21 @@ Kubernetes  yaml files from the scratch with proper explanation easy to understa
 
 
  # Deployments, StatefulSets, DaemonSets, etc.
+
+| Controller Type  | Purpose                                                                                             | Typical Use Case                                                          |
+| ---------------- | --------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
+| **Deployment**   | Manages stateless applications. Supports scaling, rolling updates, etc.                             | Web apps, APIs, frontends, backend services                               |
+| **StatefulSet**  | Manages stateful applications. Maintains identity and storage per pod.                              | Databases (e.g., PostgreSQL, MongoDB), Kafka                              |
+| **DaemonSet**    | Ensures a pod runs on **every** (or selected) node.                                                 | Node monitoring, log collection (e.g., Prometheus Node Exporter, Fluentd) |
+| **Job**          | Runs a pod to completion (batch processing).                                                        | One-time tasks like backups, batch jobs                                   |
+| **CronJob**      | Runs Jobs on a scheduled basis.                                                                     | Scheduled tasks like nightly DB dumps                                     |
+| **ReplicaSet**\* | Ensures a specified number of pod replicas are running. *(Usually managed by Deployments directly)* | Internal use by Deployment                                                |
+
+
+# apiVersion  for kinds
+1. apiVersion – API group and version used.
+2. kind – Type of Kubernetes object.
+ 
  
  | Kind        | apiVersion             |
 | ----------- | ---------------------- |
