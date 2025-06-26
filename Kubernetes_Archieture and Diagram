@@ -1,1 +1,9 @@
+Kubernetes Mater we have: 
+1 . API Server 
+2. Controll Manger 
+3.Scheduler
+4.Etcd 
+(inside Kubernetes master present ) 
 
+kubernetes 
+                              
